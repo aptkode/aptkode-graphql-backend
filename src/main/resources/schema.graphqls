@@ -1,6 +1,13 @@
 type Book{
     title: String!
     isbn: String!
+    authors: [Author]
+}
+
+type Author{
+    id: String
+    name: String!
+    books: [Book]
 }
 
 type Query{
@@ -9,6 +16,12 @@ type Query{
 
 type Mutation{
     createBook(book: BookWrapper): Book
+    createAuthor(author: AuthorWrapper): Author
+    addAuthor(authorId: String, isbn: String): Book
+}
+
+input AuthorWrapper{
+    name: String!
 }
 
 input BookWrapper{
