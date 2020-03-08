@@ -10,8 +10,9 @@ import graphql.GraphQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Component
 public class BookMutationResolver implements GraphQLMutationResolver {
@@ -29,11 +30,13 @@ public class BookMutationResolver implements GraphQLMutationResolver {
         return bookRepository.save(new Book(bookWrapper.getTitle(), bookWrapper.getIsbn()));
     }
 
-    public Book addAuthor(String authorId, String isbn) {
+    public Book addAuthor(Long authorId, String isbn) {
         Optional<Author> author = authorRepository.findById(authorId);
         Optional<Book> book = bookRepository.findById(isbn);
         if (author.isPresent() && book.isPresent()) {
-            book.get().setAuthors(Collections.singletonList(author.get()));
+            Set<Author> authors = new HashSet<>();
+            authors.add(author.get());
+            book.get().setAuthors(authors);
             bookRepository.save(book.get());
             return book.get();
         }

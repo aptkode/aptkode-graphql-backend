@@ -5,7 +5,7 @@ type Book{
 }
 
 type Author{
-    id: String
+    id: Int!
     name: String!
     books: [Book]
 }
@@ -17,7 +17,7 @@ type Query{
 type Mutation{
     createBook(book: BookWrapper): Book
     createAuthor(author: AuthorWrapper): Author
-    addAuthor(authorId: String, isbn: String): Book
+    addAuthor(authorId: Int, isbn: String): Book
 }
 
 input AuthorWrapper{

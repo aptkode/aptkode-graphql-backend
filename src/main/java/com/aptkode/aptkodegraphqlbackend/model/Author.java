@@ -1,17 +1,22 @@
 package com.aptkode.aptkodegraphqlbackend.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import java.util.List;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Author {
     @Id
-    private String id;
+    @GeneratedValue
+    private Long id;
     private String name;
-    @ManyToMany
-    private List<Book> books;
+    @ManyToMany(
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },
+            mappedBy = "authors"
+    )
+    private Set<Book> books;
 
     public Author() {
     }
@@ -20,11 +25,11 @@ public class Author {
         this.name = name;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -36,11 +41,11 @@ public class Author {
         this.name = name;
     }
 
-    public List<Book> getBooks() {
+    public Set<Book> getBooks() {
         return books;
     }
 
-    public void setBooks(List<Book> books) {
+    public void setBooks(Set<Book> books) {
         this.books = books;
     }
 }
