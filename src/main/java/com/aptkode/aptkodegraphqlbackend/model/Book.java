@@ -1,12 +1,14 @@
 package com.aptkode.aptkodegraphqlbackend.model;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 public class Book {
     private String title;
+    private LocalDate publishedDate;
     @Id
     private String isbn;
     @ManyToMany(
@@ -59,5 +61,13 @@ public class Book {
 
     public void setAuthors(Set<Author> authors) {
         this.authors = authors;
+    }
+
+    public LocalDate getPublishedDate() {
+        return publishedDate;
+    }
+
+    public void setPublishedDate(LocalDate publishedDate) {
+        this.publishedDate = publishedDate;
     }
 }
