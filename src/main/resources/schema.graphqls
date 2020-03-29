@@ -14,6 +14,7 @@ type Author{
 }
 
 type Query{
+    books(first: Int, after: String): BookConnection @connection(for: "Book")
     getBook(isbn: String!): Book
 }
 
